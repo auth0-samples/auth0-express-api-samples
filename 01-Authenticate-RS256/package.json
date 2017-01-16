@@ -1,0 +1,20 @@
+{
+  "name": "authenticate-rs256",
+  "version": "0.0.0",
+  "description": "Sample demonstrating how to verify a JWT signed with RS256",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Auth0",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "express-jwt": "^5.1.0",
+    "express-jwt-authz": "^1.0.0",
+    "jwks-rsa": "^1.1.1"
+  }
+}
