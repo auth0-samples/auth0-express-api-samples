@@ -1,6 +1,6 @@
-# Node Authentication for HS256-Signed Tokens
+# Express Authentication for HS256-Signed Tokens
 
-This sample demonstrates how to protect endpoints in a NodeJS API by verifing an incoming JWT access token signed by Auth0. The token must be signed with the HS256 algorithm and must be verified against the signing secret. 
+This sample demonstrates how to protect endpoints in an Express API by verifing an incoming JWT access token signed by Auth0. The token must be signed with the HS256 algorithm and must be verified against the signing secret. 
 
 ## Getting Started
 
