@@ -8,11 +8,11 @@ If you haven't already done so, [sign up](https://auth0.com) for your free Auth0
 
 You must ensure that the APIs section is enabled in your Auth0 dashboard. To do so, go to the [Advanced Settings](https://manage.auth0.com/#/account/advanced) area and verify that **Enable APIs Section** is switched on. Next, navigate to APIs in the sidebar and create a new API. The identifier for your API will be required later. 
 
-Clone the repo or download it from the NodeJS API quickstart page in Auth0's documentation.
+Clone the repo or download it from the Express API quickstart page in Auth0's documentation.
 
 ## Setup the `.env` File
 
-If you download this sample from the NodeJS API quickstart page, a `.env` file will come pre-populated with your API identifier and Auth0 domain. If you clone the repo from GitHub, you will need to rename `.env.example` to `.env` and provide these values manually.
+If you download this sample from the Express API quickstart page, a `.env` file will come pre-populated with your API identifier and Auth0 domain. If you clone the repo from GitHub, you will need to rename `.env.example` to `.env` and provide these values manually.
 
 ## Install the Dependencies and Start the API
 
