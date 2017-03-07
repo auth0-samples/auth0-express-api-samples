@@ -7,7 +7,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
-  throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file'
+  throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file';
 }
 
 app.use(cors());
@@ -27,18 +27,24 @@ const authenticate = jwt({
   algorithms: ['RS256']
 });
 
-const authorize = jwtAuthz([ 'read:messages' ]);
+const authorize = jwtAuthz(['read:messages']);
 
 app.get('/api/public', function(req, res) {
-  res.json({ message: "Hello from a public endpoint! You don't need to be authenticated to see this." });
+  res.json({
+    message: "Hello from a public endpoint! You don't need to be authenticated to see this."
+  });
 });
 
 app.get('/api/private', authenticate, function(req, res) {
-  res.json({ message: "Hello from a private endpoint! You DO need to be authenticated to see this." });
+  res.json({
+    message: 'Hello from a private endpoint! You DO need to be authenticated to see this.'
+  });
 });
 
 app.get('/api/private/admin', authenticate, authorize, function(req, res) {
-  res.json({ message: "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this." });
+  res.json({
+    message: 'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.'
+  });
 });
 
 app.listen(3001);
