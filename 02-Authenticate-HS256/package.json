@@ -14,6 +14,6 @@
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "express-jwt": "^5.1.0",
-    "jwks-rsa": "^1.1.1"
+    "express-jwt-authz": "^1.0.0"
   }
 }
