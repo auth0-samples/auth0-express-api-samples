@@ -1,6 +1,6 @@
-# Express Authentication for RS256-Signed Tokens
+# Express Authorization for RS256-Signed Tokens
 
-This sample demonstrates how to protect endpoints in an Express API by verifing an incoming JWT signed by Auth0. The token must be signed with the RS256 algorithm and must be verified against your Auth0 JSON Web Key Set.
+This sample demonstrates how to protect endpoints in an Express API by verifing an incoming JWT access token signed by Auth0. The token must be signed with the RS256 algorithm and must be verified against your Auth0 JSON Web Key Set.
 
 ## Getting Started
 
@@ -29,7 +29,7 @@ The sample includes these endpoints:
 * An unprotected endpoint which returns a message on success. Does not require a valid JWT access token.
 
 **GET** /api/private
-* A protected endpoint which returns a message on success. Requires a valid JWT access token.
+* A protected endpoint which returns a message on success. Requires a valid JWT access token with a `scope` of `read:messages`.
 
 ## What is Auth0?
 

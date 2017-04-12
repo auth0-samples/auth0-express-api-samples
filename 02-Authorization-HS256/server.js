@@ -18,7 +18,7 @@ app.use(cors());
 // Authentication middleware. When used, the
 // access token must exist and be verified against
 // the signing secret for the API
-const authenticate = jwt({
+const checkJwt = jwt({
   // Dynamically provide a signing key based on the kid in the header and the singing keys provided by the JWKS endpoint.
   secret: process.env.AUTH0_API_SECRET,
   // Validate the audience and the issuer.
@@ -27,7 +27,7 @@ const authenticate = jwt({
   algorithms: ['HS256']
 });
 
-const authorize = jwtAuthz(['read:messages']);
+const checkScopes = jwtAuthz(['read:messages']);
 
 app.get('/api/public', function(req, res) {
   res.json({
@@ -35,13 +35,7 @@ app.get('/api/public', function(req, res) {
   });
 });
 
-app.get('/api/private', authenticate, function(req, res) {
-  res.json({
-    message: 'Hello from a private endpoint! You DO need to be authenticated to see this.'
-  });
-});
-
-app.get('/api/private/admin', authenticate, authorize, function(req, res) {
+app.get('/api/private/admin', checkJwt, checkScopes, function(req, res) {
   res.json({
     message: 'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.'
   });
