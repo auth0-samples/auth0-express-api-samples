@@ -1,6 +1,6 @@
 # Express Authorization for HS256-Signed Tokens
 
-This sample demonstrates how to protect endpoints in an Express API by verifing an incoming JWT signed by Auth0. The token must be signed with the HS256 algorithm and must be verified against the signing secret. 
+This sample demonstrates how to protect endpoints in an Express API by verifying an incoming JWT signed by Auth0. The token must be signed with the HS256 algorithm and must be verified against the signing secret. 
 
 ## Getting Started
 
