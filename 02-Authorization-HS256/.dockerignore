@@ -1,0 +1,7 @@
+package-lock.json
+node_modules
+.gitignore
+.env.example
+exce.sh
+exec.ps1
+.env
