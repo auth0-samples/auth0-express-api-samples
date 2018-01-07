@@ -10,7 +10,7 @@ if (
   !process.env.AUTH0_AUDIENCE ||
   !process.env.AUTH0_API_SECRET
 ) {
-  throw 'Make sure you have AUTH0_DOMAIN, AUTH0_CLIENT_ID, and AUTH0_CLIENT_SECRET in your .env file';
+  throw 'Make sure you have AUTH0_DOMAIN, AUTH0_AUDIENCE, and AUTH0_API_SECRET in your .env file';
 }
 
 app.use(cors());
@@ -35,10 +35,21 @@ app.get('/api/public', function(req, res) {
   });
 });
 
-app.get('/api/private/admin', checkJwt, checkScopes, function(req, res) {
+app.get('/api/private', checkJwt, function(req, res) {
+  res.json({
+    message: 'Hello from a private endpoint! You need to be authenticated to see this.'
+  });
+});
+
+app.get('/api/private-scoped', checkJwt, checkScopes, function(req, res) {
   res.json({
     message: 'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.'
   });
+});
+
+app.use(function(err, req, res, next){
+  console.error(err.stack);
+  return res.status(err.status).json({ message: err.message });
 });
 
 app.listen(3010);
