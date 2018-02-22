@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const jwt = require('express-jwt');
-const jwtAuthz = require('express-jwt-authz');
 const jwksRsa = require('jwks-rsa');
 const cors = require('cors');
 require('dotenv').config();
@@ -27,7 +26,32 @@ const checkJwt = jwt({
   algorithms: ['RS256']
 });
 
-const checkScopes = jwtAuthz(['read:messages']);
+// const checkScopes = jwtAuthz(['read:messages']);
+const checkScopes = function (scopes) {
+  if (!Array.isArray(scopes)) {
+    throw new Error('Parameter scopes must be an array of strings.');
+  }
+
+  return function(req, res, next) {
+    if (req.user && !req.user.scope)
+      return res.status(403).json({'message': 'Insufficient scope.'});
+
+    if (!req.user || typeof req.user.scope !== 'string')
+      throw new Error('Internal server error.');
+
+    if(scopes.length === 0)
+      throw new Error('Set at least one scope.');
+
+    const tokenScopes = req.user.scope.split(' ');
+    const allowed = scopes.some(function(scope) {
+      return tokenScopes.indexOf(scope) !== -1;
+    });
+
+    return allowed ?
+        next() :
+        res.status(403).json({'message': 'Insufficient scope.'});
+  }
+};
 
 app.get('/api/public', function(req, res) {
   res.json({
@@ -41,15 +65,21 @@ app.get('/api/private', checkJwt, function(req, res) {
   });
 });
 
-app.get('/api/private-scoped', checkJwt, checkScopes, function(req, res) {
+app.get('/api/private-scoped', checkJwt, checkScopes(['read:messages']), function(req, res) {
   res.json({
     message: 'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.'
   });
 });
 
-app.use(function(err, req, res, next){
+app.use(function(err, req, res, next) {
+  let status = 500;
+  let message = 'Internal server error.';
+  if (err.status) {
+    status = err.status;
+    message = err.message;
+  }
   console.error(err.stack);
-  return res.status(err.status).json({ message: err.message });
+  return res.status(status).json({ message: message });
 });
 
 app.listen(3010);
