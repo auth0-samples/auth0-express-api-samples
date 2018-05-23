@@ -10,7 +10,11 @@ if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
   throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file';
 }
 
-app.use(cors());
+const corsOptions =  {
+  origin: 'http://localhost:3000'
+};
+
+app.use(cors(corsOptions));
 
 const checkJwt = jwt({
   // Dynamically provide a signing key based on the kid in the header and the singing keys provided by the JWKS endpoint.
