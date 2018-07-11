@@ -13,8 +13,8 @@ defaults: &defaults
             then
                 sed -i 's|{API_IDENTIFIER}|'$api_identifier'|g' .env
             else
-                sed -i 's|{API_IDENTIFIER}|'$api_identifierhs256'|g' .env
-                sed -i 's|{CLIENT_SECRET}|'$api_secret'|g' .env
+                sed -i 's|{API_IDENTIFIER}|'$api_identifier_hs256'|g' .env
+                sed -i 's|{CLIENT_SECRET}|'$api_signing_secret'|g' .env
             fi
       - run:
           name: Background Server
@@ -35,7 +35,7 @@ defaults: &defaults
             then
                 echo "API_IDENTIFIER=$api_identifier" >> .env
             else
-                echo "API_IDENTIFIER=$api_identifierhs256" >> .env
+                echo "API_IDENTIFIER=$api_identifier_hs256" >> .env
             fi
             echo "AUTH0_CLIENT_ID_1=$client_id_scopes_none" >> .env
             echo "AUTH0_CLIENT_SECRET_1=$client_secret_scopes_none" >> .env
