@@ -49,7 +49,7 @@ defaults: &defaults
             npm install
       - run:
           name: Execute automated tests
-          command: cd test && quickstart="express" npm test
+          command: cd test && npm test
 # Jobs and Workflows
 version: 2
 jobs: 
