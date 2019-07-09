@@ -8,7 +8,7 @@ defaults: &defaults
           command: | 
             cd $AUTH0_CFG
             mv .env.example .env
-            sed -i 's|{DOMAIN}|'$auth0_domain'|g' .env            
+            sed -i 's|{DOMAIN}|'$auth0_domain'|g' .env
             if [[ $AUTH0_CFG = *"RS256"* ]];
             then
                 sed -i 's|{API_IDENTIFIER}|'$api_identifier'|g' .env
@@ -49,7 +49,7 @@ defaults: &defaults
             npm install
       - run:
           name: Execute automated tests
-          command: cd test && npm test       
+          command: cd test && npm test
 # Jobs and Workflows
 version: 2
 jobs: 
@@ -59,7 +59,7 @@ jobs:
       - checkout
       - run:
           name: Clone test script
-          command: git clone -b express https://github.com/rafanog/api-quickstarts-tests test
+          command: git clone https://github.com/auth0-samples/api-quickstarts-tests test
       - persist_to_workspace:
           root: ~/ 
           paths:
