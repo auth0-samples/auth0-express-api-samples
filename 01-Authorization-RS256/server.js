@@ -17,7 +17,7 @@ const corsOptions =  {
 app.use(cors(corsOptions));
 
 const checkJwt = jwt({
-  // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint.
+  // Dynamically provide a signing key based on the [Key ID](https://tools.ietf.org/html/rfc7515#section-4.1.4) header parameter ("kid") and the signing keys provided by the JWKS endpoint.
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,
