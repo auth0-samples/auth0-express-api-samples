@@ -77,7 +77,8 @@ jobs:
       SAMPLE_PATH: 01-Authorization-RS256
     <<: *defaults
   02-Authorization-HS256:
-    machine: true
+    machine:
+      <<: *machine-cfg
     environment:
       AUTH0_CFG: 02-Authorization-HS256
       SAMPLE_PATH: 02-Authorization-HS256
