@@ -14,11 +14,9 @@
   "author": "Auth0",
   "license": "MIT",
   "dependencies": {
-    "cors": "^2.8.1",
-    "dotenv": "^4.0.0",
-    "express": "^4.14.0",
-    "express-jwt": "^6.0.0",
-    "express-jwt-authz": "^2.3.1",
-    "jwks-rsa": "^1.1.1"
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-oauth2-jwt-bearer": "^0.2.0"
   }
 }
