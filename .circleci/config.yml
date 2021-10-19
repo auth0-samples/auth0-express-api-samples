@@ -61,12 +61,6 @@ jobs:
       <<: *machine-cfg
     steps:
       - checkout
-      - run: |
-          echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-          echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-      - run: |
-          nvm install v12
-          nvm alias default v12
       - run:
           name: Clone test script
           command: git clone -b v0.0.1 --depth 1 https://github.com/auth0-samples/api-quickstarts-tests test
