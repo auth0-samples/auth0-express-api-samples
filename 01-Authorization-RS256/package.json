@@ -7,13 +7,16 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/auth0-samples/auth0-express-api-samples.git"
+  },
   "author": "Auth0",
   "license": "MIT",
   "dependencies": {
-    "cors": "^2.8.1",
-    "dotenv": "^4.0.0",
-    "express": "^4.14.0",
-    "express-jwt": "^5.1.0",
-    "jwks-rsa": "^1.1.1"
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-oauth2-jwt-bearer": "^1.0.0"
   }
 }

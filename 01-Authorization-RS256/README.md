@@ -1,6 +1,6 @@
-# Express Authentication for RS256-Signed Tokens
+# Express Authorization for RS256-Signed Tokens
 
-This sample demonstrates how to protect endpoints in an Express API by verifing an incoming JWT signed by Auth0. The token must be signed with the RS256 algorithm and must be verified against your Auth0 JSON Web Key Set.
+This sample demonstrates how to protect endpoints in an Express API by verifying an incoming JWT access token signed by Auth0. The token must be signed with the RS256 algorithm and must be verified against your Auth0 JSON Web Key Set.
 
 ## Getting Started
 
@@ -19,7 +19,7 @@ npm install
 npm start
 ```
 
-The API will be served at `http://localhost:3001`.
+The API will be served at `http://localhost:3010`.
 
 ## Endpoints
 
@@ -29,7 +29,15 @@ The sample includes these endpoints:
 * An unprotected endpoint which returns a message on success. Does not require a valid JWT access token.
 
 **GET** /api/private
-* A protected endpoint which returns a message on success. Requires a valid JWT access token.
+* A protected endpoint which returns a message on success. Requires a valid JWT access token with a `scope` of `read:messages`.
+
+## Running the Sample With Docker
+
+In order to run the example with docker you need to have `docker` installed.
+
+You also need to set the client credentials as explained [previously](#setup-the-env-file).
+
+Execute in command line `sh exec.sh` to run the Docker in Linux, or `.\exec.ps1` to run the Docker in Windows.
 
 ## What is Auth0?
 
@@ -53,7 +61,7 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## Author
 
-[Auth0](auth0.com)
+[Auth0](https://auth0.com)
 
 ## License
 
