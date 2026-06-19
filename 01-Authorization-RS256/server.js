@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
-const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
+const { createAuth0Api, requiresAuth } = require('@auth0/auth0-express-api');
 const cors = require('cors');
 require('dotenv').config();
 
-if (!process.env.ISSUER_BASE_URL || !process.env.AUDIENCE) {
-  throw 'Make sure you have ISSUER_BASE_URL, and AUDIENCE in your .env file';
+if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
+  throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file';
 }
 
 const corsOptions =  {
@@ -14,7 +14,7 @@ const corsOptions =  {
 
 app.use(cors(corsOptions));
 
-const checkJwt = auth();
+app.use(createAuth0Api());
 
 app.get('/api/public', function(req, res) {
   res.json({
@@ -22,21 +22,16 @@ app.get('/api/public', function(req, res) {
   });
 });
 
-app.get('/api/private', checkJwt, function(req, res) {
+app.get('/api/private', requiresAuth(), function(req, res) {
   res.json({
     message: 'Hello from a private endpoint! You need to be authenticated to see this.'
   });
 });
 
-app.get('/api/private-scoped', checkJwt, requiredScopes('read:messages'), function(req, res) {
+app.get('/api/private-scoped', requiresAuth({ scopes: ['read:messages'] }), function(req, res) {
   res.json({
     message: 'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.'
   });
-});
-
-app.use(function(err, req, res, next){
-  console.error(err.stack);
-  return res.set(err.headers).status(err.status).json({ message: err.message });
 });
 
 app.listen(3010);

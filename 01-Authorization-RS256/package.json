@@ -14,9 +14,9 @@
   "author": "Auth0",
   "license": "MIT",
   "dependencies": {
+    "@auth0/auth0-express-api": "^1.0.0-beta.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
-    "express": "^4.18.2",
-    "express-oauth2-jwt-bearer": "^1.6.0"
+    "express": "^4.18.2"
   }
 }
