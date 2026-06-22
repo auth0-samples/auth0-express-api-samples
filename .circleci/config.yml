@@ -8,17 +8,11 @@ defaults: &defaults
           at: ~/
       - run:
           name: Prepare environment variables
-          command: | 
+          command: |
             cd $AUTH0_CFG
             mv .env.example .env
             sed -i 's|{DOMAIN}|'$auth0_domain'|g' .env
-            if [[ $AUTH0_CFG = *"RS256"* ]];
-            then
-                sed -i 's|{API_IDENTIFIER}|'$api_identifier'|g' .env
-            else
-                sed -i 's|{API_IDENTIFIER}|'$api_identifier_hs256'|g' .env
-                sed -i 's|{CLIENT_SECRET}|'$api_signing_secret'|g' .env
-            fi
+            sed -i 's|{API_IDENTIFIER}|'$api_identifier'|g' .env
       - run:
           name: Background Server
           command: cd $AUTH0_CFG && sh exec.sh
@@ -34,12 +28,7 @@ defaults: &defaults
           command: |
             cd test
             echo "AUTH0_DOMAIN=$auth0_domain" >> .env
-            if [[ $AUTH0_CFG = *"RS256"* ]];
-            then
-                echo "API_IDENTIFIER=$api_identifier" >> .env
-            else
-                echo "API_IDENTIFIER=$api_identifier_hs256" >> .env
-            fi
+            echo "API_IDENTIFIER=$api_identifier" >> .env
             echo "AUTH0_CLIENT_ID_1=$client_id_scopes_none" >> .env
             echo "AUTH0_CLIENT_SECRET_1=$client_secret_scopes_none" >> .env
             echo "AUTH0_CLIENT_ID_2=$client_id_scopes_read" >> .env
@@ -76,14 +65,6 @@ jobs:
       AUTH0_CFG: 01-Authorization-RS256
       SAMPLE_PATH: 01-Authorization-RS256
     <<: *defaults
-  02-Authorization-HS256:
-    machine:
-      <<: *machine-cfg
-    environment:
-      AUTH0_CFG: 02-Authorization-HS256
-      SAMPLE_PATH: 02-Authorization-HS256
-    <<: *defaults
-
 workflows:
   version: 2
   API-Tests:
@@ -91,10 +72,6 @@ workflows:
       - checkout:
           context: Quickstart API Tests
       - 01-Authorization-RS256:
-          context: Quickstart API Tests
-          requires:
-            - checkout
-      - 02-Authorization-HS256:
           context: Quickstart API Tests
           requires:
             - checkout
